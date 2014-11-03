@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Nodejs | Chicken's Blog ^_^]]></title>
   <link href="http://code-for-food.github.io/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://code-for-food.github.io/"/>
-  <updated>2014-11-03T16:58:32+07:00</updated>
+  <updated>2014-11-03T17:05:13+07:00</updated>
   <id>http://code-for-food.github.io/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
@@ -216,7 +216,7 @@
           config.vm.box = "ubuntu14.04"
           config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box"
           config.vm.network "private_network", ip: "192.168.34.100"
-          config.vm.hostname = "devnode.congdang.com"
+          config.vm.hostname = "devnodejs.chicken.com"
           config.ssh.forward_agent = true
           config.ssh.forward_x11   = true
 
@@ -291,7 +291,7 @@
 <p>Welcome any comments, please contact me via</p>
 
 <ul>
-<li>Email: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#x63;&#111;&#x64;&#101;&#x2e;&#102;&#111;&#114;&#x2e;&#102;&#111;&#x6f;&#x64;&#46;&#49;&#x34;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#99;&#x6f;&#100;&#101;&#x2e;&#x66;&#111;&#114;&#46;&#x66;&#x6f;&#111;&#100;&#46;&#49;&#52;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></li>
+<li>Email: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#x3a;&#99;&#111;&#100;&#x65;&#46;&#x66;&#111;&#x72;&#x2e;&#102;&#x6f;&#x6f;&#x64;&#x2e;&#49;&#52;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#x63;&#111;&#x64;&#x65;&#x2e;&#102;&#111;&#x72;&#x2e;&#102;&#111;&#x6f;&#x64;&#46;&#x31;&#52;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></li>
 </ul>
 
 ]]></content>
