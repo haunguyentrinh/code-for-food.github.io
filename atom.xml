@@ -4,7 +4,7 @@
   <title><![CDATA[Chicken's Blog ^_^]]></title>
   <link href="http://code-for-food.github.io/atom.xml" rel="self"/>
   <link href="http://code-for-food.github.io/"/>
-  <updated>2014-11-03T17:05:13+07:00</updated>
+  <updated>2014-11-03T23:25:11+07:00</updated>
   <id>http://code-for-food.github.io/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
@@ -12,6 +12,181 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Aws] - Adding a Ec2 Node to an Elastic Load Balancer]]></title>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/"/>
+    <updated>2014-11-03T21:42:35+07:00</updated>
+    <id>http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer</id>
+    <content type="html"><![CDATA[<h3>Installing</h3>
+
+<ul>
+<li><p>Install <code>Python</code></p>
+
+<pre><code>          brew install python
+</code></pre></li>
+<li><p>Install <code>AWS CLI</code> - AWS CLI (<a href="http://aws.amazon.com/cli/">http://aws.amazon.com/cli/</a>) is command line tool for working with Amazon Web Service. In this project, we used it for checking the <code>Elastic Load Balancer</code> (ELB) is existed or not, creating an ELB, adding the <code>Health check</code> for ELB, retrieving the <code>EC2 instance</code> information registering <code>EC2 instances</code> to ELB.</p>
+
+<pre><code>  pip install awscli
+</code></pre></li>
+<li><p>Create config for aws at ~/.aws/config and add below content</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>Config file</span><a href='http://aws.amazon.com/cli/'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>profile default<span class="o">]</span>
+</span><span class='line'><span class="nv">output</span> <span class="o">=</span> json
+</span><span class='line'><span class="nv">region</span> <span class="o">=</span> us-east-1
+</span><span class='line'><span class="nv">aws_access_key_id</span> <span class="o">=</span> &lt;access key id&gt;
+</span><span class='line'><span class="nv">aws_secret_access_key</span> <span class="o">=</span> &lt;secret access key&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>Install <code>jq</code> <a href="http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html">http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html</a>.</p>
+
+<p>  <code>jq</code> is tool for parser, filter, map, and transform JSON-structured data effortlessly by command-line. We used it for parser the json data which retured form AWS CLI. <a href="http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor/">Read more on my post</a></p>
+
+<pre><code>  brew install jq 
+</code></pre></li>
+</ul>
+
+
+<h3>Coding</h3>
+
+<figure class='code'><figcaption><span>add-node-2-elb.sh</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># ask to add the node to load balancer</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">node</span><span class="o">=</span><span class="nv">$1</span><span class="p">;</span>
+</span><span class='line'><span class="nv">role</span><span class="o">=</span><span class="nv">$2</span><span class="p">;</span>
+</span><span class='line'><span class="nv">env</span><span class="o">=</span><span class="nv">$3</span><span class="p">;</span>
+</span><span class='line'><span class="nv">lbName</span><span class="o">=</span><span class="s2">&quot;MyLoadBalancer&quot;</span>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$node&quot;</span> !<span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">&quot;$role&quot;</span> !<span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$role&quot;</span> <span class="o">==</span> <span class="s2">&quot;web&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$env&quot;</span> <span class="o">==</span> <span class="s2">&quot;prod&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>      <span class="nv">lbName</span><span class="o">=</span><span class="s2">&quot;MyLoadBalancerProd&quot;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="nv">lbName</span><span class="o">=</span><span class="s2">&quot;MyLoadBalancerStaging&quot;</span>
+</span><span class='line'>  <span class="k">fi</span>   
+</span><span class='line'><span class="k">else</span>   
+</span><span class='line'>  <span class="nb">printf</span> <span class="s2">&quot;Please enter a valid role (&#39;web&#39;) \n&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">fi</span> 
+</span><span class='line'>
+</span><span class='line'><span class="c"># http://docs.aws.amazon.com/cli/latest/reference/elb/describe-load-balancers.html</span>
+</span><span class='line'><span class="nv">MyLoadBalancer</span><span class="o">=</span><span class="k">$(</span>
+</span><span class='line'>  aws elb describe-load-balancers <span class="se">\</span>
+</span><span class='line'>      --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>  <span class="k">)</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># the load balancer is node existed, create the ELB first</span>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$MyLoadBalancer&quot;</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># http://docs.aws.amazon.com/cli/latest/reference/elb/create-load-balancer.html </span>
+</span><span class='line'>  aws elb create-load-balancer <span class="se">\</span>
+</span><span class='line'>      --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>      --listeners <span class="nv">Protocol</span><span class="o">=</span>HTTP,LoadBalancerPort<span class="o">=</span>80,InstanceProtocol<span class="o">=</span>HTTP,InstancePort<span class="o">=</span><span class="m">80</span> <span class="se">\</span>
+</span><span class='line'>      --availability-zones us-east-1a <span class="se">\</span>
+</span><span class='line'>      --security-groups sg-bac6eddf <span class="se">\</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c">#http://docs.aws.amazon.com/cli/latest/reference/elb/configure-health-check.html</span>
+</span><span class='line'>  aws elb configure-health-check <span class="se">\</span>
+</span><span class='line'>      --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>      --health-check <span class="nv">Target</span><span class="o">=</span>HTTP:80/index.php,Interval<span class="o">=</span>30,UnhealthyThreshold<span class="o">=</span>2,HealthyThreshold<span class="o">=</span>2,Timeout<span class="o">=</span>3
+</span><span class='line'>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">printf</span> <span class="s2">&quot;$MyLoadBalancer\n&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># http://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html</span>
+</span><span class='line'><span class="c"># http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html</span>
+</span><span class='line'><span class="c"># MAC - brew install jq</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">nodeId</span><span class="o">=</span><span class="k">$(</span>aws ec2 describe-instances --filters <span class="s2">&quot;Name=ip-address,Values=$node&quot;</span> <span class="p">|</span> jq <span class="s2">&quot;.Reservations[0].Instances[0].InstanceId&quot;</span><span class="k">)</span>
+</span><span class='line'><span class="nv">nodeId</span><span class="o">=</span><span class="s2">&quot;${nodeId%\&quot;}&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="c"># http://docs.aws.amazon.com/cli/latest/reference/elb/register-instances-with-load-balancer.html</span>
+</span><span class='line'>aws elb register-instances-with-load-balancer <span class="se">\</span>
+</span><span class='line'>  --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>  --instances <span class="s2">&quot;${nodeId#\&quot;}&quot;</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'><span class="nb">printf</span> <span class="s2">&quot;Please enter the node and role adding to ELB.\n&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">fi</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h3>Usage</h3>
+
+<pre><code>./add-node-2-elb.sh 123.456.789.910 web staging 
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Command-line JSON Processor]]></title>
@@ -376,7 +551,7 @@
 <p>Welcome any comments, please contact me via</p>
 
 <ul>
-<li>Email: <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x63;&#111;&#100;&#x65;&#x2e;&#102;&#x6f;&#114;&#46;&#x66;&#111;&#x6f;&#100;&#x2e;&#x31;&#52;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#99;&#111;&#100;&#x65;&#x2e;&#x66;&#x6f;&#x72;&#46;&#x66;&#111;&#x6f;&#x64;&#46;&#x31;&#x34;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></li>
+<li>Email: <a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x63;&#111;&#100;&#101;&#x2e;&#102;&#111;&#x72;&#x2e;&#x66;&#x6f;&#x6f;&#100;&#46;&#x31;&#x34;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#111;&#109;">&#x63;&#111;&#100;&#101;&#x2e;&#x66;&#x6f;&#x72;&#46;&#102;&#x6f;&#111;&#x64;&#46;&#x31;&#52;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></li>
 </ul>
 
 ]]></content>
