@@ -9,8 +9,7 @@
   <meta name="author" content="code.for.food.14">
 
   
-  <meta name="description" content="This project is Chef-Solo, this help to setup development base on Nodejs and Mysql
-This also includes a demo about Simple API which using Express &hellip;">
+  <meta name="description" content="jq is a command-line JSON processor. If you want to learn to use jq, read the documentation at http://stedolan.github.io/jq. This documentation is &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +65,66 @@ This also includes a demo about Simple API which using Express &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/03/command-line-json-processor/">Command-line JSON Processor</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-03T11:23:05+07:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>11:23 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><code>jq</code> is a command-line JSON processor.</p>
+
+<p>If you want to learn to use jq, read the documentation at <a href="http://stedolan.github.io/jq">http://stedolan.github.io/jq</a>. This documentation is generated from the docs/ folder of this repository. You can also try it online at <a href="http://jqplay.org">http://jqplay.org</a>.</p>
+
+<h3>Basic filters</h3>
+
+<figure class='code'><figcaption><span>Example1</span><a href='http://stedolan.github.io/jq/manual/exemple1'>exemple</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>jq <span class="s1">&#39;.&#39;</span>
+</span><span class='line'>Input <span class="s2">&quot;Hello, world!&quot;</span>
+</span><span class='line'>Output    <span class="s2">&quot;Hello, world!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span>Example2</span><a href='http://stedolan.github.io/jq/manual/exemple2'>exemple</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>jq <span class="s1">&#39;.foo&#39;</span>
+</span><span class='line'>Input <span class="o">{</span><span class="s2">&quot;foo&quot;</span>: 42, <span class="s2">&quot;bar&quot;</span>: <span class="s2">&quot;less interesting data&quot;</span><span class="o">}</span>
+</span><span class='line'>Output    42
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>More details please check it out from original website</h3>
+
+<figure class='code'><figcaption><span>Original website</span><a href='http://stedolan.github.io/jq/manual'>original website</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>http://stedolan.github.io/jq/manual/ 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next post, I&rsquo;d like to use this for parser the <code>aws</code> result. (coming soon.)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -406,7 +465,7 @@ This also includes a demo about Simple API which using Express &hellip;">
 <p>Welcome any comments, please contact me via</p>
 
 <ul>
-<li>Email: <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x63;&#111;&#x64;&#101;&#x2e;&#x66;&#x6f;&#x72;&#46;&#x66;&#111;&#111;&#100;&#46;&#49;&#52;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x63;&#111;&#100;&#101;&#46;&#102;&#111;&#114;&#46;&#102;&#x6f;&#x6f;&#x64;&#46;&#x31;&#x34;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a></li>
+<li>Email: <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#99;&#111;&#100;&#x65;&#46;&#102;&#x6f;&#x72;&#46;&#102;&#x6f;&#x6f;&#100;&#46;&#49;&#52;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#x63;&#x6f;&#100;&#x65;&#46;&#102;&#x6f;&#x72;&#46;&#x66;&#x6f;&#x6f;&#x64;&#x2e;&#x31;&#52;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></li>
 </ul>
 
 </div>
@@ -458,6 +517,10 @@ This also includes a demo about Simple API which using Express &hellip;">
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/03/command-line-json-processor/">Command-line JSON Processor</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/11/03/nodejs-cooking/">Nodejs Cooking</a>
