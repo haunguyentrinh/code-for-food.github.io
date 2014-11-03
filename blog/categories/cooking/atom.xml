@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Cooking | Chitken's Blog ^_^]]></title>
   <link href="http://code-for-food.github.io/blog/categories/cooking/atom.xml" rel="self"/>
   <link href="http://code-for-food.github.io/"/>
-  <updated>2014-11-03T10:02:03+07:00</updated>
+  <updated>2014-11-03T11:17:22+07:00</updated>
   <id>http://code-for-food.github.io/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
@@ -252,7 +252,18 @@
 
 <h4>Develop Environment using Vagrant</h4>
 
-<p>Notes: You must install <a href="https://www.vagrantup.com/">Vagrant</a> first</p>
+<p>Notes:</p>
+
+<ul>
+<li>You must install <a href="https://www.vagrantup.com/">Vagrant</a> first</li>
+<li><p>Install <code>vagrant-omnibus</code> plugin</p>
+
+<pre><code>  vagrant plugin install vagrant-omnibus
+</code></pre></li>
+</ul>
+
+
+<p>Vagrant up</p>
 
 <pre><code>    vagrant up
 </code></pre>
@@ -280,7 +291,7 @@
 <p>Welcome any comments, please contact me via</p>
 
 <ul>
-<li>Email: <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#99;&#x6f;&#100;&#101;&#x2e;&#102;&#111;&#x72;&#x2e;&#x66;&#111;&#x6f;&#x64;&#x2e;&#x31;&#52;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#99;&#111;&#x64;&#x65;&#46;&#x66;&#x6f;&#114;&#46;&#102;&#x6f;&#111;&#x64;&#46;&#x31;&#x34;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></li>
+<li>Email: <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#x63;&#x6f;&#100;&#x65;&#x2e;&#102;&#111;&#114;&#x2e;&#x66;&#x6f;&#111;&#100;&#46;&#49;&#x34;&#64;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#x63;&#111;&#x64;&#101;&#x2e;&#x66;&#111;&#x72;&#46;&#x66;&#x6f;&#111;&#x64;&#46;&#x31;&#52;&#64;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></li>
 </ul>
 
 ]]></content>
