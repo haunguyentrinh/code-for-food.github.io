@@ -4,7 +4,7 @@
   <title><![CDATA[Chitken's Blog ^_^]]></title>
   <link href="http://code-for-food.github.io/atom.xml" rel="self"/>
   <link href="http://code-for-food.github.io/"/>
-  <updated>2014-11-03T09:37:51+07:00</updated>
+  <updated>2014-11-03T09:43:38+07:00</updated>
   <id>http://code-for-food.github.io/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
@@ -12,5 +12,14 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[My Home]]></title>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/my-home/"/>
+    <updated>2014-11-03T09:43:23+07:00</updated>
+    <id>http://code-for-food.github.io/blog/2014/11/03/my-home</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
 </feed>
