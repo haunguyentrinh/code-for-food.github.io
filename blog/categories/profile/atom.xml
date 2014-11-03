@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Chitken's Blog ^_^]]></title>
-  <link href="http://code-for-food.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Profile | Chitken's Blog ^_^]]></title>
+  <link href="http://code-for-food.github.io/blog/categories/profile/atom.xml" rel="self"/>
   <link href="http://code-for-food.github.io/"/>
   <updated>2014-11-03T09:45:54+07:00</updated>
   <id>http://code-for-food.github.io/</id>
