@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://www.codeforfoods.net/sitemap.xml 
+Sitemap: http://code-for-food.github.io/sitemap.xml 
