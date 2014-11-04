@@ -4,7 +4,7 @@
   <title><![CDATA[Chicken's Blog ^_^]]></title>
   <link href="http://www.codeforfoods.net/atom.xml" rel="self"/>
   <link href="http://www.codeforfoods.net/"/>
-  <updated>2014-11-04T17:07:53+07:00</updated>
+  <updated>2014-11-04T17:09:11+07:00</updated>
   <id>http://www.codeforfoods.net/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[My Profile]]></title>
+    <link href="http://www.codeforfoods.net/blog/2014/11/04/my-profile/"/>
+    <updated>2014-11-04T17:08:37+07:00</updated>
+    <id>http://www.codeforfoods.net/blog/2014/11/04/my-profile</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CORS on Apache]]></title>
@@ -579,7 +588,7 @@
 <p>Welcome any comments, please contact me via</p>
 
 <ul>
-<li>Email: <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#99;&#111;&#x64;&#x65;&#46;&#x66;&#x6f;&#114;&#x2e;&#x66;&#111;&#x6f;&#100;&#x2e;&#49;&#52;&#64;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#99;&#x6f;&#x64;&#x65;&#x2e;&#x66;&#111;&#114;&#46;&#102;&#x6f;&#111;&#100;&#46;&#x31;&#52;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></li>
+<li>Email: <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#99;&#111;&#x64;&#101;&#x2e;&#x66;&#111;&#x72;&#x2e;&#x66;&#x6f;&#111;&#x64;&#46;&#49;&#52;&#64;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#x63;&#111;&#100;&#x65;&#x2e;&#102;&#x6f;&#x72;&#x2e;&#102;&#111;&#x6f;&#100;&#x2e;&#49;&#x34;&#x40;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></li>
 </ul>
 
 ]]></content>
