@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Cooking | Chicken's Blog ^_^]]></title>
-  <link href="http://code-for-food.github.io/blog/categories/cooking/atom.xml" rel="self"/>
-  <link href="http://code-for-food.github.io/"/>
-  <updated>2014-11-04T16:54:03+07:00</updated>
-  <id>http://code-for-food.github.io/</id>
+  <link href="http://www.codeforfoods.net/blog/categories/cooking/atom.xml" rel="self"/>
+  <link href="http://www.codeforfoods.net/"/>
+  <updated>2014-11-04T16:59:40+07:00</updated>
+  <id>http://www.codeforfoods.net/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Nodejs Cooking]]></title>
-    <link href="http://code-for-food.github.io/blog/2014/11/03/nodejs-cooking/"/>
+    <link href="http://www.codeforfoods.net/blog/2014/11/03/nodejs-cooking/"/>
     <updated>2014-11-03T09:47:33+07:00</updated>
-    <id>http://code-for-food.github.io/blog/2014/11/03/nodejs-cooking</id>
+    <id>http://www.codeforfoods.net/blog/2014/11/03/nodejs-cooking</id>
     <content type="html"><![CDATA[<ul>
 <li><p>This project is Chef-Solo, this help to setup development base on Nodejs and Mysql</p></li>
 <li><p>This also includes a demo about Simple API which using Express and Mysql</p></li>
@@ -291,7 +291,7 @@
 <p>Welcome any comments, please contact me via</p>
 
 <ul>
-<li>Email: <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#99;&#111;&#x64;&#101;&#x2e;&#102;&#111;&#114;&#x2e;&#x66;&#111;&#x6f;&#100;&#46;&#x31;&#x34;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#99;&#x6f;&#100;&#101;&#x2e;&#102;&#111;&#114;&#46;&#x66;&#111;&#111;&#x64;&#46;&#x31;&#x34;&#x40;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></li>
+<li>Email: <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#99;&#x6f;&#x64;&#x65;&#46;&#102;&#111;&#x72;&#46;&#102;&#x6f;&#x6f;&#100;&#46;&#49;&#52;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#99;&#x6f;&#x64;&#x65;&#x2e;&#x66;&#111;&#x72;&#x2e;&#102;&#x6f;&#x6f;&#x64;&#46;&#x31;&#x34;&#x40;&#103;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></li>
 </ul>
 
 ]]></content>

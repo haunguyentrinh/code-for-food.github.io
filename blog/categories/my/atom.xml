@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: My | Chicken's Blog ^_^]]></title>
-  <link href="http://code-for-food.github.io/blog/categories/my/atom.xml" rel="self"/>
-  <link href="http://code-for-food.github.io/"/>
-  <updated>2014-11-04T16:54:03+07:00</updated>
-  <id>http://code-for-food.github.io/</id>
+  <link href="http://www.codeforfoods.net/blog/categories/my/atom.xml" rel="self"/>
+  <link href="http://www.codeforfoods.net/"/>
+  <updated>2014-11-04T16:59:40+07:00</updated>
+  <id>http://www.codeforfoods.net/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[My Home]]></title>
-    <link href="http://code-for-food.github.io/blog/2014/11/03/my-home/"/>
+    <link href="http://www.codeforfoods.net/blog/2014/11/03/my-home/"/>
     <updated>2014-11-03T09:43:23+07:00</updated>
-    <id>http://code-for-food.github.io/blog/2014/11/03/my-home</id>
+    <id>http://www.codeforfoods.net/blog/2014/11/03/my-home</id>
     <content type="html"><![CDATA[<h3>Hey there, welcome to Chicken&rsquo;s Blog!!!</h3>
 
 <p>I&rsquo;m realy a Chicken and I&rsquo;m trying to learn everything day by day.</p>
