@@ -1,66 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://www.codeforfoods.net/blog/2014/11/04/abc/</loc>
-    <lastmod>2014-11-04T16:45:53+07:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>http://www.codeforfoods.net/blog/2014/11/04/new-post/</loc>
-    <lastmod>2014-11-04T16:44:53+07:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>http://www.codeforfoods.net/blog/2014/11/04/draf-post/</loc>
-    <lastmod>2014-11-04T15:00:35+07:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>http://www.codeforfoods.net/blog/2014/11/04/cors-on-apache/</loc>
+    <loc>http://code-for-food.github.io/blog/2014/11/04/cors-on-apache/</loc>
     <lastmod>2014-11-04T08:32:41+07:00</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://www.codeforfoods.net/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/</loc>
+    <loc>http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/</loc>
     <lastmod>2014-11-03T21:42:35+07:00</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://www.codeforfoods.net/blog/2014/11/03/command-line-json-processor/</loc>
+    <loc>http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor/</loc>
     <lastmod>2014-11-03T11:23:05+07:00</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://www.codeforfoods.net/blog/2014/11/03/nodejs-cooking/</loc>
+    <loc>http://code-for-food.github.io/blog/2014/11/03/nodejs-cooking/</loc>
     <lastmod>2014-11-03T09:47:33+07:00</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://www.codeforfoods.net/blog/2014/11/03/my-home/</loc>
+    <loc>http://code-for-food.github.io/blog/2014/11/03/my-home/</loc>
     <lastmod>2014-11-03T09:43:23+07:00</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://www.codeforfoods.net/blog/archives/</loc>
-    <lastmod>2014-11-04T16:51:48+07:00</lastmod>
+    <loc>http://code-for-food.github.io/blog/archives/</loc>
+    <lastmod>2014-11-04T16:32:23+07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>http://www.codeforfoods.net/</loc>
-    <lastmod>2014-11-04T16:51:48+07:00</lastmod>
+    <loc>http://code-for-food.github.io/</loc>
+    <lastmod>2014-11-04T16:32:23+07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://www.codeforfoods.net/about-me/</loc>
-    <lastmod>2014-11-04T16:51:48+07:00</lastmod>
+    <loc>http://code-for-food.github.io/about-me/</loc>
+    <lastmod>2014-11-04T16:32:23+07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>http://www.codeforfoods.net/about-us/</loc>
-    <lastmod>2014-11-04T16:51:48+07:00</lastmod>
+    <loc>http://code-for-food.github.io/about-us/</loc>
+    <lastmod>2014-11-04T16:32:23+07:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

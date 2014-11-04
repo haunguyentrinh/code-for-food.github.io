@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Apache | Chicken's Blog ^_^]]></title>
-  <link href="http://www.codeforfoods.net/blog/categories/apache/atom.xml" rel="self"/>
-  <link href="http://www.codeforfoods.net/"/>
-  <updated>2014-11-04T16:51:48+07:00</updated>
-  <id>http://www.codeforfoods.net/</id>
+  <link href="http://code-for-food.github.io/blog/categories/apache/atom.xml" rel="self"/>
+  <link href="http://code-for-food.github.io/"/>
+  <updated>2014-11-04T16:32:23+07:00</updated>
+  <id>http://code-for-food.github.io/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[CORS on Apache]]></title>
-    <link href="http://www.codeforfoods.net/blog/2014/11/04/cors-on-apache/"/>
+    <link href="http://code-for-food.github.io/blog/2014/11/04/cors-on-apache/"/>
     <updated>2014-11-04T08:32:41+07:00</updated>
-    <id>http://www.codeforfoods.net/blog/2014/11/04/cors-on-apache</id>
+    <id>http://code-for-food.github.io/blog/2014/11/04/cors-on-apache</id>
     <content type="html"><![CDATA[<p>To add the CORS authorization to the header using Apache, simply add the following line inside either the <code>&lt;Directory&gt;</code>, <code>&lt;Location&gt;</code>, <code>&lt;Files&gt;</code> or <code>&lt;VirtualHost&gt;</code> sections of your server config (usually located in a *.conf file, such as <code>httpd.conf</code> or <code>apache.conf</code>), or within a <code>.htaccess</code> file:</p>
 
 <pre><code>    Header set Access-Control-Allow-Origin "*"

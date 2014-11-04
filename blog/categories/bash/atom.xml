@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Bash | Chicken's Blog ^_^]]></title>
-  <link href="http://www.codeforfoods.net/blog/categories/bash/atom.xml" rel="self"/>
-  <link href="http://www.codeforfoods.net/"/>
-  <updated>2014-11-04T16:51:48+07:00</updated>
-  <id>http://www.codeforfoods.net/</id>
+  <link href="http://code-for-food.github.io/blog/categories/bash/atom.xml" rel="self"/>
+  <link href="http://code-for-food.github.io/"/>
+  <updated>2014-11-04T16:32:23+07:00</updated>
+  <id>http://code-for-food.github.io/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Aws] - Adding a Ec2 Node to an Elastic Load Balancer]]></title>
-    <link href="http://www.codeforfoods.net/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/"/>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/"/>
     <updated>2014-11-03T21:42:35+07:00</updated>
-    <id>http://www.codeforfoods.net/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer</id>
+    <id>http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer</id>
     <content type="html"><![CDATA[<h3>Installing</h3>
 
 <ul>
@@ -122,9 +122,9 @@ fi
   
   <entry>
     <title type="html"><![CDATA[Command-line JSON Processor]]></title>
-    <link href="http://www.codeforfoods.net/blog/2014/11/03/command-line-json-processor/"/>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor/"/>
     <updated>2014-11-03T11:23:05+07:00</updated>
-    <id>http://www.codeforfoods.net/blog/2014/11/03/command-line-json-processor</id>
+    <id>http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor</id>
     <content type="html"><![CDATA[<p><code>jq</code> is a command-line JSON processor.</p>
 
 <p>If you want to learn to use jq, read the documentation at <a href="http://stedolan.github.io/jq">http://stedolan.github.io/jq</a>. This documentation is generated from the docs/ folder of this repository. You can also try it online at <a href="http://jqplay.org">http://jqplay.org</a>.</p>

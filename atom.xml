@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Chicken's Blog ^_^]]></title>
-  <link href="http://www.codeforfoods.net/atom.xml" rel="self"/>
-  <link href="http://www.codeforfoods.net/"/>
-  <updated>2014-11-04T16:51:48+07:00</updated>
-  <id>http://www.codeforfoods.net/</id>
+  <link href="http://code-for-food.github.io/atom.xml" rel="self"/>
+  <link href="http://code-for-food.github.io/"/>
+  <updated>2014-11-04T16:32:23+07:00</updated>
+  <id>http://code-for-food.github.io/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
     
@@ -14,46 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Abc]]></title>
-    <link href="http://www.codeforfoods.net/blog/2014/11/04/abc/"/>
-    <updated>2014-11-04T16:45:53+07:00</updated>
-    <id>http://www.codeforfoods.net/blog/2014/11/04/abc</id>
-    <content type="html"><![CDATA[<p><img src="http://www.mtv.com/crop-images/2013/09/09/Fun_325.jpg"></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[New Post]]></title>
-    <link href="http://www.codeforfoods.net/blog/2014/11/04/new-post/"/>
-    <updated>2014-11-04T16:44:53+07:00</updated>
-    <id>http://www.codeforfoods.net/blog/2014/11/04/new-post</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Draf Post]]></title>
-    <link href="http://www.codeforfoods.net/blog/2014/11/04/draf-post/"/>
-    <updated>2014-11-04T15:00:35+07:00</updated>
-    <id>http://www.codeforfoods.net/blog/2014/11/04/draf-post</id>
-    <content type="html"><![CDATA[<h3>This is a post.</h3>
-
-<figure class='code'><figcaption><span>This is ruby code</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="mi">1</span><span class="o">=</span><span class="mi">1</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">some</span> <span class="n">stuff</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[CORS on Apache]]></title>
-    <link href="http://www.codeforfoods.net/blog/2014/11/04/cors-on-apache/"/>
+    <link href="http://code-for-food.github.io/blog/2014/11/04/cors-on-apache/"/>
     <updated>2014-11-04T08:32:41+07:00</updated>
-    <id>http://www.codeforfoods.net/blog/2014/11/04/cors-on-apache</id>
+    <id>http://code-for-food.github.io/blog/2014/11/04/cors-on-apache</id>
     <content type="html"><![CDATA[<p>To add the CORS authorization to the header using Apache, simply add the following line inside either the <code>&lt;Directory&gt;</code>, <code>&lt;Location&gt;</code>, <code>&lt;Files&gt;</code> or <code>&lt;VirtualHost&gt;</code> sections of your server config (usually located in a *.conf file, such as <code>httpd.conf</code> or <code>apache.conf</code>), or within a <code>.htaccess</code> file:</p>
 
 <pre><code>    Header set Access-Control-Allow-Origin "*"
@@ -79,9 +43,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Aws] - Adding a Ec2 Node to an Elastic Load Balancer]]></title>
-    <link href="http://www.codeforfoods.net/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/"/>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/"/>
     <updated>2014-11-03T21:42:35+07:00</updated>
-    <id>http://www.codeforfoods.net/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer</id>
+    <id>http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer</id>
     <content type="html"><![CDATA[<h3>Installing</h3>
 
 <ul>
@@ -113,7 +77,7 @@
 <ul>
 <li><p>Install <code>jq</code> <a href="http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html">http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html</a>.</p>
 
-<p>  <code>jq</code> is tool for parser, filter, map, and transform JSON-structured data effortlessly by command-line. We used it for parser the json data which retured form AWS CLI. <a href="http://www.codeforfoods.net/blog/2014/11/03/command-line-json-processor/">Read more on my post</a></p>
+<p>  <code>jq</code> is tool for parser, filter, map, and transform JSON-structured data effortlessly by command-line. We used it for parser the json data which retured form AWS CLI. <a href="http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor/">Read more on my post</a></p>
 
 <pre><code>  brew install jq 
 </code></pre></li>
@@ -254,9 +218,9 @@
   
   <entry>
     <title type="html"><![CDATA[Command-line JSON Processor]]></title>
-    <link href="http://www.codeforfoods.net/blog/2014/11/03/command-line-json-processor/"/>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor/"/>
     <updated>2014-11-03T11:23:05+07:00</updated>
-    <id>http://www.codeforfoods.net/blog/2014/11/03/command-line-json-processor</id>
+    <id>http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor</id>
     <content type="html"><![CDATA[<p><code>jq</code> is a command-line JSON processor.</p>
 
 <p>If you want to learn to use jq, read the documentation at <a href="http://stedolan.github.io/jq">http://stedolan.github.io/jq</a>. This documentation is generated from the docs/ folder of this repository. You can also try it online at <a href="http://jqplay.org">http://jqplay.org</a>.</p>
@@ -294,9 +258,9 @@
   
   <entry>
     <title type="html"><![CDATA[Nodejs Cooking]]></title>
-    <link href="http://www.codeforfoods.net/blog/2014/11/03/nodejs-cooking/"/>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/nodejs-cooking/"/>
     <updated>2014-11-03T09:47:33+07:00</updated>
-    <id>http://www.codeforfoods.net/blog/2014/11/03/nodejs-cooking</id>
+    <id>http://code-for-food.github.io/blog/2014/11/03/nodejs-cooking</id>
     <content type="html"><![CDATA[<ul>
 <li><p>This project is Chef-Solo, this help to setup development base on Nodejs and Mysql</p></li>
 <li><p>This also includes a demo about Simple API which using Express and Mysql</p></li>
@@ -615,7 +579,7 @@
 <p>Welcome any comments, please contact me via</p>
 
 <ul>
-<li>Email: <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#99;&#111;&#100;&#101;&#x2e;&#x66;&#x6f;&#x72;&#46;&#102;&#x6f;&#111;&#100;&#46;&#x31;&#x34;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#99;&#x6f;&#100;&#x65;&#46;&#102;&#x6f;&#x72;&#x2e;&#102;&#111;&#111;&#100;&#46;&#49;&#x34;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></li>
+<li>Email: <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x63;&#x6f;&#x64;&#x65;&#x2e;&#102;&#111;&#114;&#x2e;&#x66;&#x6f;&#x6f;&#x64;&#46;&#49;&#x34;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#99;&#x6f;&#100;&#x65;&#x2e;&#x66;&#x6f;&#114;&#46;&#102;&#111;&#111;&#100;&#x2e;&#x31;&#52;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></li>
 </ul>
 
 ]]></content>
@@ -623,9 +587,9 @@
   
   <entry>
     <title type="html"><![CDATA[My Home]]></title>
-    <link href="http://www.codeforfoods.net/blog/2014/11/03/my-home/"/>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/my-home/"/>
     <updated>2014-11-03T09:43:23+07:00</updated>
-    <id>http://www.codeforfoods.net/blog/2014/11/03/my-home</id>
+    <id>http://code-for-food.github.io/blog/2014/11/03/my-home</id>
     <content type="html"><![CDATA[<h3>Hey there, welcome to Chicken&rsquo;s Blog!!!</h3>
 
 <p>I&rsquo;m realy a Chicken and I&rsquo;m trying to learn everything day by day.</p>
