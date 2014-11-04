@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Chicken's Blog ^_^]]></title>
+  <link href="http://code-for-food.github.io/atom.xml" rel="self"/>
+  <link href="http://code-for-food.github.io/"/>
+  <updated>2014-11-04T09:12:30+07:00</updated>
+  <id>http://code-for-food.github.io/</id>
+  <author>
+    <name><![CDATA[code.for.food.14]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[CORS on Apache]]></title>
+    <link href="http://code-for-food.github.io/blog/2014/11/04/cors-on-apache/"/>
+    <updated>2014-11-04T08:32:41+07:00</updated>
+    <id>http://code-for-food.github.io/blog/2014/11/04/cors-on-apache</id>
+    <content type="html"><![CDATA[<p>To add the CORS authorization to the header using Apache, simply add the following line inside either the <code>&lt;Directory&gt;</code>, <code>&lt;Location&gt;</code>, <code>&lt;Files&gt;</code> or <code>&lt;VirtualHost&gt;</code> sections of your server config (usually located in a *.conf file, such as <code>httpd.conf</code> or <code>apache.conf</code>), or within a <code>.htaccess</code> file:</p>
+
+<pre><code>    Header set Access-Control-Allow-Origin "*"
+</code></pre>
+
+<p>To ensure that your changes are correct, it is strongly reccomended that you use</p>
+
+<pre><code>    apachectl -t
+</code></pre>
+
+<p>to check your configuration changes for errors. After this passes, you may need to reload Apache to make sure your changes are applied by running the command</p>
+
+<pre><code>    sudo service apache2 reload
+</code></pre>
+
+<p>More detail</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://enable-cors.org/server_apache.html</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Aws] - Adding a Ec2 Node to an Elastic Load Balancer]]></title>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/"/>
+    <updated>2014-11-03T21:42:35+07:00</updated>
+    <id>http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer</id>
+    <content type="html"><![CDATA[<h3>Installing</h3>
+
+<ul>
+<li><p>Install <code>Python</code></p>
+
+<pre><code>          brew install python
+</code></pre></li>
+<li><p>Install <code>AWS CLI</code> - AWS CLI (<a href="http://aws.amazon.com/cli/">http://aws.amazon.com/cli/</a>) is command line tool for working with Amazon Web Service. In this project, we used it for checking the <code>Elastic Load Balancer</code> (ELB) is existed or not, creating an ELB, adding the <code>Health check</code> for ELB, retrieving the <code>EC2 instance</code> information registering <code>EC2 instances</code> to ELB.</p>
+
+<pre><code>  pip install awscli
+</code></pre></li>
+<li><p>Create config for aws at ~/.aws/config and add below content</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>Config file</span><a href='http://aws.amazon.com/cli/'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>profile default<span class="o">]</span>
+</span><span class='line'><span class="nv">output</span> <span class="o">=</span> json
+</span><span class='line'><span class="nv">region</span> <span class="o">=</span> us-east-1
+</span><span class='line'><span class="nv">aws_access_key_id</span> <span class="o">=</span> &lt;access key id&gt;
+</span><span class='line'><span class="nv">aws_secret_access_key</span> <span class="o">=</span> &lt;secret access key&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>Install <code>jq</code> <a href="http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html">http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html</a>.</p>
+
+<p>  <code>jq</code> is tool for parser, filter, map, and transform JSON-structured data effortlessly by command-line. We used it for parser the json data which retured form AWS CLI. <a href="http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor/">Read more on my post</a></p>
+
+<pre><code>  brew install jq 
+</code></pre></li>
+</ul>
+
+
+<h3>Coding</h3>
+
+<figure class='code'><figcaption><span>add-node-2-elb.sh</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># ask to add the node to load balancer</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">node</span><span class="o">=</span><span class="nv">$1</span><span class="p">;</span>
+</span><span class='line'><span class="nv">role</span><span class="o">=</span><span class="nv">$2</span><span class="p">;</span>
+</span><span class='line'><span class="nv">env</span><span class="o">=</span><span class="nv">$3</span><span class="p">;</span>
+</span><span class='line'><span class="nv">lbName</span><span class="o">=</span><span class="s2">&quot;MyLoadBalancer&quot;</span>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$node&quot;</span> !<span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">&quot;$role&quot;</span> !<span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$role&quot;</span> <span class="o">==</span> <span class="s2">&quot;web&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$env&quot;</span> <span class="o">==</span> <span class="s2">&quot;prod&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>      <span class="nv">lbName</span><span class="o">=</span><span class="s2">&quot;MyLoadBalancerProd&quot;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="nv">lbName</span><span class="o">=</span><span class="s2">&quot;MyLoadBalancerStaging&quot;</span>
+</span><span class='line'>  <span class="k">fi</span>   
+</span><span class='line'><span class="k">else</span>   
+</span><span class='line'>  <span class="nb">printf</span> <span class="s2">&quot;Please enter a valid role (&#39;web&#39;) \n&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">fi</span> 
+</span><span class='line'>
+</span><span class='line'><span class="c"># http://docs.aws.amazon.com/cli/latest/reference/elb/describe-load-balancers.html</span>
+</span><span class='line'><span class="nv">MyLoadBalancer</span><span class="o">=</span><span class="k">$(</span>
+</span><span class='line'>  aws elb describe-load-balancers <span class="se">\</span>
+</span><span class='line'>      --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>  <span class="k">)</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># the load balancer is node existed, create the ELB first</span>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$MyLoadBalancer&quot;</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># http://docs.aws.amazon.com/cli/latest/reference/elb/create-load-balancer.html </span>
+</span><span class='line'>  aws elb create-load-balancer <span class="se">\</span>
+</span><span class='line'>      --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>      --listeners <span class="nv">Protocol</span><span class="o">=</span>HTTP,LoadBalancerPort<span class="o">=</span>80,InstanceProtocol<span class="o">=</span>HTTP,InstancePort<span class="o">=</span><span class="m">80</span> <span class="se">\</span>
+</span><span class='line'>      --availability-zones us-east-1a <span class="se">\</span>
+</span><span class='line'>      --security-groups sg-bac6eddf <span class="se">\</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c">#http://docs.aws.amazon.com/cli/latest/reference/elb/configure-health-check.html</span>
+</span><span class='line'>  aws elb configure-health-check <span class="se">\</span>
+</span><span class='line'>      --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>      --health-check <span class="nv">Target</span><span class="o">=</span>HTTP:80/index.php,Interval<span class="o">=</span>30,UnhealthyThreshold<span class="o">=</span>2,HealthyThreshold<span class="o">=</span>2,Timeout<span class="o">=</span>3
+</span><span class='line'>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">printf</span> <span class="s2">&quot;$MyLoadBalancer\n&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># http://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html</span>
+</span><span class='line'><span class="c"># http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html</span>
+</span><span class='line'><span class="c"># MAC - brew install jq</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">nodeId</span><span class="o">=</span><span class="k">$(</span>aws ec2 describe-instances --filters <span class="s2">&quot;Name=ip-address,Values=$node&quot;</span> <span class="p">|</span> jq <span class="s2">&quot;.Reservations[0].Instances[0].InstanceId&quot;</span><span class="k">)</span>
+</span><span class='line'><span class="nv">nodeId</span><span class="o">=</span><span class="s2">&quot;${nodeId%\&quot;}&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="c"># http://docs.aws.amazon.com/cli/latest/reference/elb/register-instances-with-load-balancer.html</span>
+</span><span class='line'>aws elb register-instances-with-load-balancer <span class="se">\</span>
+</span><span class='line'>  --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>  --instances <span class="s2">&quot;${nodeId#\&quot;}&quot;</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'><span class="nb">printf</span> <span class="s2">&quot;Please enter the node and role adding to ELB.\n&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">fi</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h3>Usage</h3>
+
+<pre><code>./add-node-2-elb.sh 123.456.789.910 web staging 
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Command-line JSON Processor]]></title>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor/"/>
+    <updated>2014-11-03T11:23:05+07:00</updated>
+    <id>http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor</id>
+    <content type="html"><![CDATA[<p><code>jq</code> is a command-line JSON processor.</p>
+
+<p>If you want to learn to use jq, read the documentation at <a href="http://stedolan.github.io/jq">http://stedolan.github.io/jq</a>. This documentation is generated from the docs/ folder of this repository. You can also try it online at <a href="http://jqplay.org">http://jqplay.org</a>.</p>
+
+<h3>Basic filters</h3>
+
+<figure class='code'><figcaption><span>Example1</span><a href='http://stedolan.github.io/jq/manual/exemple1'>exemple</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>jq <span class="s1">&#39;.&#39;</span>
+</span><span class='line'>Input <span class="s2">&quot;Hello, world!&quot;</span>
+</span><span class='line'>Output    <span class="s2">&quot;Hello, world!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span>Example2</span><a href='http://stedolan.github.io/jq/manual/exemple2'>exemple</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>jq <span class="s1">&#39;.foo&#39;</span>
+</span><span class='line'>Input <span class="o">{</span><span class="s2">&quot;foo&quot;</span>: 42, <span class="s2">&quot;bar&quot;</span>: <span class="s2">&quot;less interesting data&quot;</span><span class="o">}</span>
+</span><span class='line'>Output    42
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>More details please check it out from original website</h3>
+
+<figure class='code'><figcaption><span>Original website</span><a href='http://stedolan.github.io/jq/manual'>original website</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>http://stedolan.github.io/jq/manual/ 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next post, I&rsquo;d like to use this for parser the <code>aws</code> result. (coming soon.)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Nodejs Cooking]]></title>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/nodejs-cooking/"/>
+    <updated>2014-11-03T09:47:33+07:00</updated>
+    <id>http://code-for-food.github.io/blog/2014/11/03/nodejs-cooking</id>
+    <content type="html"><![CDATA[<ul>
+<li><p>This project is Chef-Solo, this help to setup development base on Nodejs and Mysql</p></li>
+<li><p>This also includes a demo about Simple API which using Express and Mysql</p></li>
+</ul>
+
+
+<h4>What was including</h4>
+
+<ul>
+<li>Using <a href="https://docs.getchef.com/chef_solo.html">Chef-solo</a> for cooking</li>
+<li>Using <a href="http://matschaffer.github.io/knife-solo">Knife-solo</a> for initialazing, adding, editing <code>cookbooks</code>, <code>roles</code>, <code>environment</code></li>
+<li>Using <a href="https://github.com/applicationsonline/librarian-chef">librarian-chef</a> for managing <code>cookbooks</code></li>
+</ul>
+
+
+<h4>Installing</h4>
+
+<ul>
+<li>Installing <code>librarian-chef</code> and <code>knife-solo</code></li>
+<li><p>initialazing librarian, this would create new forder with named <code>cookbooks</code> and a <code>Cheffile</code></p>
+
+<pre><code>  librarian-chef init
+</code></pre></li>
+<li><p>Adding <code>nvm</code> and <code>msql</code> cookbook to <code>Cheffile</code></p>
+
+<pre><code>  cookbook 'mysql', '~&gt; 5.5.2'
+  cookbook 'nvm', '~&gt; 0.1.0'  
+</code></pre></li>
+<li><p>Initialazing <code>knife-solo</code>, this would create the folder structure</p>
+
+<pre><code>  knife-solo init
+</code></pre></li>
+<li><p>Installing cookbooks from <code>Cheffile</code></p>
+
+<pre><code>  libratian-chef install
+</code></pre></li>
+<li><p>Creating an encryption key</p>
+
+<pre><code>  openssl rand -base64 512 | tr -d 'rn' &gt; ~/.chef/encrypted_data_bag_secret
+  chmod 600 ~/.chef/encrypted_data_bag_secret
+</code></pre></li>
+<li><p>Adding the path of encryption key to <code>.chef/knife.rb</code></p>
+
+<pre><code>  knife[:secret_file] = ".chef/encrypted_data_bag_secret"
+</code></pre></li>
+<li><p>Creating a data bag, this stores the security inforamtion (ex database&rsquo;s password)</p>
+
+<pre><code>   knife solo data bag create secrets myapp
+</code></pre></li>
+</ul>
+
+
+<p>Enter something</p>
+
+<pre><code>    {
+        "id": "myapp",
+         "aws_config": {
+            "AWSAccessKeyId": "xxx",
+            "AWSSecretKey": "xxx"
+          },
+      "db_config": {
+        "dev": [
+            {
+                "name": "default",
+                "mysql_root_password": "abc@123",
+                "hostname": "localhost",
+                "username": "root",
+                "password": "abc@123",
+                "database": "myqpp"
+            }
+        ]
+      }
+    }
+</code></pre>
+
+<ul>
+<li><p>The encrypted data bag will be stored into <code>data-bag/secrets/myapp.js</code></p>
+
+<pre><code>  {
+    "id": "myapp",
+    "aws_config": {
+      "encrypted_data":               "RjARHBKLm0DTbHDeIB5XjTjdWovyvv5T3V9T79UyEOq4/5Km6LaZ4y7leP7/\nNLCNQaJsUZQASaAII3bzkmwamecn03q5XUp4yDzeYcCqyRhP18BnyCxYDcOm\nc0HD1xEVuOanTt5R7ppJMj3kzN02YESN4CA/+70f0Qkp6yexhVo=\n",
+      "iv": "Yr9pDrhjZjhLRxHEBna0nw==\n",
+      "version": 1,
+      "cipher": "aes-256-cbc"
+    },
+    "db_config": {
+      "encrypted_data": "F6iPNUMY+dzao52SpQqHEWlFbGWUBMWSBAy4FinaCQ0Tbh06nDPgSdNI7qoJ\n3DjfrLBZOV1/8xD9t+SkJI3BEvW+yxCnnDPEz+iiZ8/jYJaypy/Bhrn42EC4\ni2VPb66HnVYD4Uq0pObVWzhLATXfqNZ/79I/bTdHTuhGcynDNzRNjyYEDfIF\nG9SuooNjUAduwmLotW//XxMM4uFNZ04hww==\n",
+      "iv": "DbN/KOPibOqNtAkLbdBr0w==\n",
+      "version": 1,
+      "cipher": "aes-256-cbc"
+    }
+  }
+</code></pre></li>
+<li><p>Creating a owner cookbook (I created <code>myapp</code> cookbook), this should create at <code>site-cookbook</code> folder</p>
+
+<pre><code>  knife cookbook create  myapp
+</code></pre></li>
+<li><p>Configurating the default root password for mysql::server add <code>site-cookbooks/myapp/attributes/default.rb</code> (create one if this file is not existed)</p>
+
+<pre><code>  secrets = Chef::EncryptedDataBagItem.load("secrets", "myapp")
+
+  default['mysql']['server_root_password']   = secrets["db_config"][node.chef_environment][0]["mysql_root_password"]
+  default['mysql']['server_debian_password'] = secrets["db_config"][node.chef_environment][0]["mysql_root_password"]
+  default['mysql']['server_repl_password']   = secrets["db_config"][node.chef_environment][0]["mysql_root_password"]
+</code></pre></li>
+<li><p>Installing <code>mysql</code> and <code>nvm</code> and <code>node 0.10.33</code> in <code>site-cookbooks/myapp/attributes/recipes/default.rb</code></p>
+
+<pre><code>  include_recipe "mysql::client"
+  include_recipe "mysql::server"
+  include_recipe 'nvm'
+
+  # install node.js v0.10.5
+  nvm_install 'v0.10.33'  do
+      from_source true
+      alias_as_default true
+      action :create
+  end
+</code></pre></li>
+<li><p>Creating <code>deploy recipe</code>, this recipe would  help to deploy latest code from <code>github</code> to server and <code>start/restart server</code></p></li>
+<li><p>Creating the <code>enviroments</code> (<code>dev</code> for Vagrant and <code>prod</code> for real server)</p>
+
+<pre><code>  kinfe evironment create dev
+</code></pre></li>
+</ul>
+
+
+<p>Enter something</p>
+
+<pre><code>    {
+          "name": "dev",
+          "description": "",
+          "cookbook_versions": {
+
+          },
+          "json_class": "Chef::Environment",
+          "chef_type": "environment",
+          "default_attributes": {
+            "myapp": {
+              "root_path": "/vagrant"
+            }
+        },
+        "override_attributes": {
+
+        }
+    }
+</code></pre>
+
+<ul>
+<li><p>Creating the <code>roles</code></p>
+
+<pre><code>  knife role create myapp
+</code></pre></li>
+</ul>
+
+
+<p>Enter something</p>
+
+<pre><code>    {
+      "name": "myapp",
+      "description": "",
+      "json_class": "Chef::Role",
+      "default_attributes": {
+
+      },
+      "override_attributes": {
+
+      },
+      "chef_type": "role",
+      "run_list": [
+
+      ],
+      "env_run_lists": {
+        "dev": [
+          "recipe[myapp]",
+          "recipe[myapp::deploy]"
+        ]
+      }
+    }   
+</code></pre>
+
+<ul>
+<li>Creating <code>Vagrantfile</code> which would use <code>chef-solo</code> as provision</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>Vagrantfile</span><a href='https://github.com/code-for-food/node-cooking/blob/master/Vagrantfile'>Link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># -*- mode: ruby -*-</span>
+</span><span class='line'>  <span class="c1"># vi: set ft=ruby :</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Vagrantfile API/syntax version. Don&#39;t touch unless you know what you&#39;re doing!</span>
+</span><span class='line'>  <span class="no">VAGRANTFILE_API_VERSION</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span>
+</span><span class='line'>  <span class="no">CHEF_PATH</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+</span><span class='line'>  <span class="no">SYNC_PATH</span> <span class="o">=</span> <span class="s2">&quot;./www&quot;</span>
+</span><span class='line'>  <span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="no">VAGRANTFILE_API_VERSION</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;ubuntu14.04&quot;</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box_url</span> <span class="o">=</span> <span class="s2">&quot;https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box&quot;</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="s2">&quot;private_network&quot;</span><span class="p">,</span> <span class="ss">ip</span><span class="p">:</span> <span class="s2">&quot;192.168.34.100&quot;</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="s2">&quot;devnodejs.chicken.com&quot;</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">ssh</span><span class="o">.</span><span class="n">forward_agent</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">ssh</span><span class="o">.</span><span class="n">forward_x11</span>   <span class="o">=</span> <span class="kp">true</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="s2">&quot;virtualbox&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">vb</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">vb</span><span class="o">.</span><span class="n">customize</span><span class="p">(</span><span class="o">[</span><span class="s2">&quot;modifyvm&quot;</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">&quot;--natdnshostresolver1&quot;</span><span class="p">,</span> <span class="s2">&quot;off&quot;</span>  <span class="o">]</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">vb</span><span class="o">.</span><span class="n">customize</span><span class="p">(</span><span class="o">[</span><span class="s2">&quot;modifyvm&quot;</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">&quot;--natdnsproxy1&quot;</span><span class="p">,</span>        <span class="s2">&quot;off&quot;</span>  <span class="o">]</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">vb</span><span class="o">.</span><span class="n">customize</span><span class="p">(</span><span class="o">[</span><span class="s2">&quot;modifyvm&quot;</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">&quot;--memory&quot;</span><span class="p">,</span>              <span class="s2">&quot;1024&quot;</span> <span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">omnibus</span><span class="o">.</span><span class="n">chef_version</span> <span class="o">=</span> <span class="s1">&#39;11.16.0&#39;</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="ss">:chef_solo</span> <span class="k">do</span> <span class="o">|</span><span class="n">chef</span><span class="o">|</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>         <span class="n">chef</span><span class="o">.</span><span class="n">cookbooks_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">CHEF_PATH</span><span class="si">}</span><span class="s2">/cookbooks&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">CHEF_PATH</span><span class="si">}</span><span class="s2">/site-cookbooks&quot;</span>
+</span><span class='line'>         <span class="n">chef</span><span class="o">.</span><span class="n">environments_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">CHEF_PATH</span><span class="si">}</span><span class="s2">/environments&quot;</span>
+</span><span class='line'>         <span class="n">chef</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="s2">&quot;dev&quot;</span>
+</span><span class='line'>         <span class="n">chef</span><span class="o">.</span><span class="n">roles_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">CHEF_PATH</span><span class="si">}</span><span class="s2">/roles&quot;</span>
+</span><span class='line'>         <span class="n">chef</span><span class="o">.</span><span class="n">data_bags_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">CHEF_PATH</span><span class="si">}</span><span class="s2">/data_bags&quot;</span>
+</span><span class='line'>         <span class="n">chef</span><span class="o">.</span><span class="n">encrypted_data_bag_secret_key_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">CHEF_PATH</span><span class="si">}</span><span class="s2">/.chef/encrypted_data_bag_secret&quot;</span>
+</span><span class='line'>         <span class="n">chef</span><span class="o">.</span><span class="n">add_role</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="no">SYNC_PATH</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/vagrant&quot;</span><span class="p">,</span>
+</span><span class='line'>                      <span class="ss">:owner</span> <span class="o">=&gt;</span> <span class="s2">&quot;vagrant&quot;</span><span class="p">,</span>
+</span><span class='line'>                      <span class="ss">:group</span> <span class="o">=&gt;</span> <span class="s2">&quot;vagrant&quot;</span><span class="p">,</span>
+</span><span class='line'>                      <span class="ss">:mount_options</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;dmode=777&#39;</span><span class="p">,</span><span class="s1">&#39;fmode=777&#39;</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Usage</h3>
+
+<h4>Develop Environment using Vagrant</h4>
+
+<p>Notes:</p>
+
+<ul>
+<li>You must install <a href="https://www.vagrantup.com/">Vagrant</a> first</li>
+<li><p>Install <code>vagrant-omnibus</code> plugin</p>
+
+<pre><code>  vagrant plugin install vagrant-omnibus
+</code></pre></li>
+</ul>
+
+
+<p>Vagrant up</p>
+
+<pre><code>    vagrant up
+</code></pre>
+
+<p>You see something like that</p>
+
+<pre><code>    Running handlers:
+    [2014-11-02T07:16:20+00:00] INFO: Running report handlers
+    Running handlers complete
+    [2014-11-02T07:16:20+00:00] INFO: Report handlers complete
+    Chef Client finished, 30/36 resources updated in 756.082469267 seconds
+</code></pre>
+
+<h5>Congratulation!!! You are Chef now :)</h5>
+
+<figure class='code'><figcaption><span>git repos</span><a href='https://github.com/code-for-food/node-cooking/blob/master/Vagrantfile'>repos</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">$</span> <span class="n">git</span> <span class="nb">clone</span> <span class="ss">https</span><span class="p">:</span><span class="sr">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">code</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">food</span><span class="o">/</span><span class="n">node</span><span class="o">-</span><span class="n">cooking</span><span class="o">.</span><span class="n">git</span> <span class="c1"># fork from github</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>License</h3>
+
+<p>Written by <a href="mailto:code.for.food.14@gmail.com">code-for-food</a></p>
+
+<p>Copyright &copy; 2014 Code-For-Food.</p>
+
+<p>Welcome any comments, please contact me via</p>
+
+<ul>
+<li>Email: <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#99;&#111;&#100;&#101;&#x2e;&#102;&#x6f;&#x72;&#x2e;&#x66;&#111;&#x6f;&#x64;&#46;&#x31;&#52;&#x40;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#99;&#111;&#x64;&#101;&#x2e;&#x66;&#111;&#x72;&#x2e;&#102;&#111;&#111;&#x64;&#x2e;&#49;&#x34;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My Home]]></title>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/my-home/"/>
+    <updated>2014-11-03T09:43:23+07:00</updated>
+    <id>http://code-for-food.github.io/blog/2014/11/03/my-home</id>
+    <content type="html"><![CDATA[<h3>Hey there, welcome to Chicken&rsquo;s Blog!!!</h3>
+
+<p>I&rsquo;m realy a Chicken and I&rsquo;m trying to learn everything day by day.</p>
+]]></content>
+  </entry>
+  
+</feed>

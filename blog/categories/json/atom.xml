@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Json | Chicken's Blog ^_^]]></title>
+  <link href="http://code-for-food.github.io/blog/categories/json/atom.xml" rel="self"/>
+  <link href="http://code-for-food.github.io/"/>
+  <updated>2014-11-04T09:12:30+07:00</updated>
+  <id>http://code-for-food.github.io/</id>
+  <author>
+    <name><![CDATA[code.for.food.14]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Command-line JSON Processor]]></title>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor/"/>
+    <updated>2014-11-03T11:23:05+07:00</updated>
+    <id>http://code-for-food.github.io/blog/2014/11/03/command-line-json-processor</id>
+    <content type="html"><![CDATA[<p><code>jq</code> is a command-line JSON processor.</p>
+
+<p>If you want to learn to use jq, read the documentation at <a href="http://stedolan.github.io/jq">http://stedolan.github.io/jq</a>. This documentation is generated from the docs/ folder of this repository. You can also try it online at <a href="http://jqplay.org">http://jqplay.org</a>.</p>
+
+<h3>Basic filters</h3>
+
+<pre><code class="bash Example1 http://stedolan.github.io/jq/manual/exemple1 exemple">    jq '.'
+    Input   "Hello, world!"
+    Output  "Hello, world!"
+</code></pre>
+
+<pre><code class="bash Example2 http://stedolan.github.io/jq/manual/exemple2 exemple">    jq '.foo'
+    Input   {"foo": 42, "bar": "less interesting data"}
+    Output  42
+</code></pre>
+
+<h3>More details please check it out from original website</h3>
+
+<pre><code class="bash Original website http://stedolan.github.io/jq/manual original website">    http://stedolan.github.io/jq/manual/    
+</code></pre>
+
+<p>Next post, I&rsquo;d like to use this for parser the <code>aws</code> result. (coming soon.)</p>
+]]></content>
+  </entry>
+  
+</feed>

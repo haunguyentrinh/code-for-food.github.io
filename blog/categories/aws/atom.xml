@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Aws | Chicken's Blog ^_^]]></title>
+  <link href="http://code-for-food.github.io/blog/categories/aws/atom.xml" rel="self"/>
+  <link href="http://code-for-food.github.io/"/>
+  <updated>2014-11-04T09:12:30+07:00</updated>
+  <id>http://code-for-food.github.io/</id>
+  <author>
+    <name><![CDATA[code.for.food.14]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[Aws] - Adding a Ec2 Node to an Elastic Load Balancer]]></title>
+    <link href="http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/"/>
+    <updated>2014-11-03T21:42:35+07:00</updated>
+    <id>http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer</id>
+    <content type="html"><![CDATA[<h3>Installing</h3>
+
+<ul>
+<li><p>Install <code>Python</code></p>
+
+<pre><code>          brew install python
+</code></pre></li>
+<li><p>Install <code>AWS CLI</code> - AWS CLI (<a href="http://aws.amazon.com/cli/">http://aws.amazon.com/cli/</a>) is command line tool for working with Amazon Web Service. In this project, we used it for checking the <code>Elastic Load Balancer</code> (ELB) is existed or not, creating an ELB, adding the <code>Health check</code> for ELB, retrieving the <code>EC2 instance</code> information registering <code>EC2 instances</code> to ELB.</p>
+
+<pre><code>  pip install awscli
+</code></pre></li>
+<li><p>Create config for aws at ~/.aws/config and add below content</p></li>
+</ul>
+
+
+<pre><code class="bash Config file http://aws.amazon.com/cli/ link">    [profile default]
+    output = json
+    region = us-east-1
+    aws_access_key_id = &lt;access key id&gt;
+    aws_secret_access_key = &lt;secret access key&gt;
+</code></pre>
+
+<ul>
+<li><p>Install <code>jq</code> <a href="http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html">http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html</a>.</p>
+
+<p>  <code>jq</code> is tool for parser, filter, map, and transform JSON-structured data effortlessly by command-line. We used it for parser the json data which retured form AWS CLI. <a href="/blog/2014/11/03/command-line-json-processor/">Read more on my post</a></p>
+
+<pre><code>  brew install jq 
+</code></pre></li>
+</ul>
+
+
+<h3>Coding</h3>
+
+<pre><code class="bash add-node-2-elb.sh">    #!/bin/bash
+    #
+
+    # ask to add the node to load balancer
+
+    node=$1;
+    role=$2;
+    env=$3;
+    lbName="MyLoadBalancer"
+if [ "$node" != "" ] &amp;&amp; [ "$role" != "" ]; then
+
+    if [ "$role" == "web" ]; then
+        if [ "$env" == "prod" ]; then
+            lbName="MyLoadBalancerProd"
+        else
+            lbName="MyLoadBalancerStaging"
+        fi  
+    else    
+        printf "Please enter a valid role ('web') \n";
+    fi  
+
+    # http://docs.aws.amazon.com/cli/latest/reference/elb/describe-load-balancers.html
+    MyLoadBalancer=$(
+        aws elb describe-load-balancers \
+            --load-balancer-name $lbName \
+        );
+
+    # the load balancer is node existed, create the ELB first
+    if [ "$MyLoadBalancer" == '' ]; then
+
+        # http://docs.aws.amazon.com/cli/latest/reference/elb/create-load-balancer.html 
+        aws elb create-load-balancer \
+            --load-balancer-name $lbName \
+            --listeners Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80 \
+            --availability-zones us-east-1a \
+            --security-groups sg-bac6eddf \
+
+        #http://docs.aws.amazon.com/cli/latest/reference/elb/configure-health-check.html
+        aws elb configure-health-check \
+            --load-balancer-name $lbName \
+            --health-check Target=HTTP:80/index.php,Interval=30,UnhealthyThreshold=2,HealthyThreshold=2,Timeout=3
+
+    else
+        printf "$MyLoadBalancer\n";
+    fi
+
+    # http://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
+    # http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html
+    # MAC - brew install jq
+
+    nodeId=$(aws ec2 describe-instances --filters "Name=ip-address,Values=$node" | jq ".Reservations[0].Instances[0].InstanceId")
+    nodeId="${nodeId%\"}"; 
+    # http://docs.aws.amazon.com/cli/latest/reference/elb/register-instances-with-load-balancer.html
+    aws elb register-instances-with-load-balancer \
+        --load-balancer-name $lbName \
+        --instances "${nodeId#\"}"
+else
+    printf "Please enter the node and role adding to ELB.\n";
+fi
+</code></pre>
+
+<h3>Usage</h3>
+
+<pre><code>./add-node-2-elb.sh 123.456.789.910 web staging 
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[Aws] - Adding a Ec2 Node to an Elastic Load Balancer - Chicken&#8217;s Blog ^_^</title>
+  <meta name="author" content="code.for.food.14">
+
+  
+  <meta name="description" content="Installing Install Python brew install python Install AWS CLI - AWS CLI (http://aws.amazon.com/cli/) is command line tool for working with Amazon Web &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Chicken's Blog ^_^" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-56334390-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Chicken&#8217;s Blog ^_^</a></h1>
+  
+    <h2>(Just code for food)</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:code-for-food.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/about-me">About Me</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">[Aws] - Adding a Ec2 Node to an Elastic Load Balancer</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-03T21:42:35+07:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>9:42 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Installing</h3>
+
+<ul>
+<li><p>Install <code>Python</code></p>
+
+<pre><code>          brew install python
+</code></pre></li>
+<li><p>Install <code>AWS CLI</code> - AWS CLI (<a href="http://aws.amazon.com/cli/">http://aws.amazon.com/cli/</a>) is command line tool for working with Amazon Web Service. In this project, we used it for checking the <code>Elastic Load Balancer</code> (ELB) is existed or not, creating an ELB, adding the <code>Health check</code> for ELB, retrieving the <code>EC2 instance</code> information registering <code>EC2 instances</code> to ELB.</p>
+
+<pre><code>  pip install awscli
+</code></pre></li>
+<li><p>Create config for aws at ~/.aws/config and add below content</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>Config file</span><a href='http://aws.amazon.com/cli/'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>profile default<span class="o">]</span>
+</span><span class='line'><span class="nv">output</span> <span class="o">=</span> json
+</span><span class='line'><span class="nv">region</span> <span class="o">=</span> us-east-1
+</span><span class='line'><span class="nv">aws_access_key_id</span> <span class="o">=</span> &lt;access key id&gt;
+</span><span class='line'><span class="nv">aws_secret_access_key</span> <span class="o">=</span> &lt;secret access key&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>Install <code>jq</code> <a href="http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html">http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html</a>.</p>
+
+<p>  <code>jq</code> is tool for parser, filter, map, and transform JSON-structured data effortlessly by command-line. We used it for parser the json data which retured form AWS CLI. <a href="/blog/2014/11/03/command-line-json-processor/">Read more on my post</a></p>
+
+<pre><code>  brew install jq 
+</code></pre></li>
+</ul>
+
+
+<h3>Coding</h3>
+
+<figure class='code'><figcaption><span>add-node-2-elb.sh</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># ask to add the node to load balancer</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">node</span><span class="o">=</span><span class="nv">$1</span><span class="p">;</span>
+</span><span class='line'><span class="nv">role</span><span class="o">=</span><span class="nv">$2</span><span class="p">;</span>
+</span><span class='line'><span class="nv">env</span><span class="o">=</span><span class="nv">$3</span><span class="p">;</span>
+</span><span class='line'><span class="nv">lbName</span><span class="o">=</span><span class="s2">&quot;MyLoadBalancer&quot;</span>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$node&quot;</span> !<span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">&quot;$role&quot;</span> !<span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$role&quot;</span> <span class="o">==</span> <span class="s2">&quot;web&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$env&quot;</span> <span class="o">==</span> <span class="s2">&quot;prod&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>      <span class="nv">lbName</span><span class="o">=</span><span class="s2">&quot;MyLoadBalancerProd&quot;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="nv">lbName</span><span class="o">=</span><span class="s2">&quot;MyLoadBalancerStaging&quot;</span>
+</span><span class='line'>  <span class="k">fi</span>   
+</span><span class='line'><span class="k">else</span>   
+</span><span class='line'>  <span class="nb">printf</span> <span class="s2">&quot;Please enter a valid role (&#39;web&#39;) \n&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">fi</span> 
+</span><span class='line'>
+</span><span class='line'><span class="c"># http://docs.aws.amazon.com/cli/latest/reference/elb/describe-load-balancers.html</span>
+</span><span class='line'><span class="nv">MyLoadBalancer</span><span class="o">=</span><span class="k">$(</span>
+</span><span class='line'>  aws elb describe-load-balancers <span class="se">\</span>
+</span><span class='line'>      --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>  <span class="k">)</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># the load balancer is node existed, create the ELB first</span>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$MyLoadBalancer&quot;</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># http://docs.aws.amazon.com/cli/latest/reference/elb/create-load-balancer.html </span>
+</span><span class='line'>  aws elb create-load-balancer <span class="se">\</span>
+</span><span class='line'>      --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>      --listeners <span class="nv">Protocol</span><span class="o">=</span>HTTP,LoadBalancerPort<span class="o">=</span>80,InstanceProtocol<span class="o">=</span>HTTP,InstancePort<span class="o">=</span><span class="m">80</span> <span class="se">\</span>
+</span><span class='line'>      --availability-zones us-east-1a <span class="se">\</span>
+</span><span class='line'>      --security-groups sg-bac6eddf <span class="se">\</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c">#http://docs.aws.amazon.com/cli/latest/reference/elb/configure-health-check.html</span>
+</span><span class='line'>  aws elb configure-health-check <span class="se">\</span>
+</span><span class='line'>      --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>      --health-check <span class="nv">Target</span><span class="o">=</span>HTTP:80/index.php,Interval<span class="o">=</span>30,UnhealthyThreshold<span class="o">=</span>2,HealthyThreshold<span class="o">=</span>2,Timeout<span class="o">=</span>3
+</span><span class='line'>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">printf</span> <span class="s2">&quot;$MyLoadBalancer\n&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># http://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html</span>
+</span><span class='line'><span class="c"># http://xmodulo.com/how-to-parse-json-string-via-command-line-on-linux.html</span>
+</span><span class='line'><span class="c"># MAC - brew install jq</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">nodeId</span><span class="o">=</span><span class="k">$(</span>aws ec2 describe-instances --filters <span class="s2">&quot;Name=ip-address,Values=$node&quot;</span> <span class="p">|</span> jq <span class="s2">&quot;.Reservations[0].Instances[0].InstanceId&quot;</span><span class="k">)</span>
+</span><span class='line'><span class="nv">nodeId</span><span class="o">=</span><span class="s2">&quot;${nodeId%\&quot;}&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="c"># http://docs.aws.amazon.com/cli/latest/reference/elb/register-instances-with-load-balancer.html</span>
+</span><span class='line'>aws elb register-instances-with-load-balancer <span class="se">\</span>
+</span><span class='line'>  --load-balancer-name <span class="nv">$lbName</span> <span class="se">\</span>
+</span><span class='line'>  --instances <span class="s2">&quot;${nodeId#\&quot;}&quot;</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'><span class="nb">printf</span> <span class="s2">&quot;Please enter the node and role adding to ELB.\n&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">fi</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h3>Usage</h3>
+
+<pre><code>./add-node-2-elb.sh 123.456.789.910 web staging 
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">code.for.food.14</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-11-03T21:42:35+07:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>9:42 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/aws/'>aws</a>, <a class='category' href='/blog/categories/bash/'>bash</a>, <a class='category' href='/blog/categories/elb/'>elb</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/" data-via="congdang" data-counturl="http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/11/03/command-line-json-processor/" title="Previous Post: Command-line JSON processor">&laquo; Command-line JSON processor</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/11/04/cors-on-apache/" title="Next Post: CORS on Apache">CORS on Apache &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section class="gravatar-section first odd">
+  <h1>I am</h1>
+  <div class="bio">
+    <div class="messages">
+      <p><a href="https://github.com/code-for-food"><strong>@Code For Food</strong></a></p>
+      <p>a web developer</p>
+      <p>in Viet Name</p>
+      <a href="/about-me">More</a>
+    </div>
+  </div>
+  <div class="gravatar">
+    <img src="https://avatars3.githubusercontent.com/u/9510217?v=2&s=400" alt="Github avarta of code for food" title="Github avarta of code for food">
+  </div>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/04/cors-on-apache/">CORS on Apache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/">[Aws] - Adding a Ec2 Node to an Elastic Load Balancer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/03/command-line-json-processor/">Command-line JSON Processor</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/03/nodejs-cooking/">Nodejs Cooking</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/03/my-home/">My Home</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/code-for-food">@code-for-food</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'code-for-food',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/code.for.food.14?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - code.for.food.14 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
