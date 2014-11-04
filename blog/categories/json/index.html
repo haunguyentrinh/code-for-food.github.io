@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <title>Category: Json - Chicken&#8217;s Blog ^_^</title>
-  <meta name="author" content="code.for.food.14">
+  <meta name="author" content="codeforfoods">
 
   
   <meta name="description" content="Category: json">
@@ -116,8 +116,8 @@
   <h1>We are</h1>
   <div class="bio">
     <div class="messages">
-      <p><a href="https://github.com/code-for-food"><strong>@Code For Food</strong></a></p>
-      <p>We are web developers</p>
+      <p><a href="https://codeforfoods.net"><strong>@CodeForFoods</strong></a></p>
+      <p>we are web developers</p>
       <p>in Viet Name</p>
       <a href="/about-us">More</a>
     </div>
@@ -148,36 +148,6 @@
   </ul>
 </section>
 
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/code-for-food">@code-for-food</a> on GitHub
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'code-for-food',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
 
 <section class="googleplus">
   <h1>
@@ -197,12 +167,25 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - code.for.food.14 -
+  Copyright &copy; 2014 - codeforfoods -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
 </footer>
   
+
+<script type="text/javascript">
+      var disqus_shortname = 'codeforfoods';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
