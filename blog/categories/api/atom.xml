@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Api | Chicken's Blog ^_^]]></title>
+  <link href="http://codeforfoods.net/blog/categories/api/atom.xml" rel="self"/>
+  <link href="http://codeforfoods.net/"/>
+  <updated>2014-11-04T22:39:42+07:00</updated>
+  <id>http://codeforfoods.net/</id>
+  <author>
+    <name><![CDATA[codeforfoods]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[API Documentation Made Beautiful With Apiary.io]]></title>
+    <link href="http://codeforfoods.net/blog/2014/11/04/api-documentation-made-beautiful-with-apiary-dot-io/"/>
+    <updated>2014-11-04T22:19:17+07:00</updated>
+    <id>http://codeforfoods.net/blog/2014/11/04/api-documentation-made-beautiful-with-apiary-dot-io</id>
+    <content type="html"><![CDATA[<h5>Apiary is a free, hosted API documentation repository</h5>
+
+<p>The least exciting part of any software project I work on is the documentation. With APIs in particular, documentation can be time consuming because it needs to provide enough detail for any consumer to understand and interface with it. For that reason, proper documentation of an API is even more crucial.</p>
+
+<p>The most recent two projects I&rsquo;ve been working on both required that full APIs be developed in addition to the core of the platform. On one of them I was building both the API and the client to consume it so the need to describe the API was nil. On the other I&rsquo;m working in tandem with a colleague and need to communicate the API calls and requirements as they&rsquo;re completed. My first attempt at doing so was pretty lame. I typed out the API calls for a particular controller and attached sample requests/responses in text files and emailed them across the room. I&rsquo;m happy to say that was the last time I did that.</p>
+
+<p>As soon as I hit send on that email I knew I was doing something stupid. I asked another colleague about what he had used in the past and he pointed me toward <a href="http://apiary.io">Apiary.io</a>. Apiary is a web based repository for API documentation that also includes server mocking, code samples, automated testing, and GitHub sync. It&rsquo;s free for most needs including both public and private API documentation.</p>
+
+<p>I created a new account in a single click since I was already logged into GitHub and I was off and running creating my API documentation. Once I got the hang of the Markdown related syntax called <a href="http://apiary.io/blueprint">API Blueprint</a>, I was able to quickly document each API resource in far greater detail than I had been previously. I then invited my colleague to the Apiary API project and things became much better for both of us. Now he can simply refresh the page to pick up any new documentation and get full detail and examples of each API resource at will.</p>
+
+<p>What does the resulting documentation look like you might ask? Here&rsquo;s a screenshot but you&rsquo;ll want to head over to <a href="http://docs.themoviedb.apiary.io/">one of the featured APIs</a> to check it out for yourself.</p>
+
+<p><img class="<a" src="href="http://images.techhive.com/images/idge/imported/article/itw/2014/02/28/image1-100480198-orig.png">http://images.techhive.com/images/idge/imported/article/itw/2014/02/28/image1-100480198-orig.png</a>&#8221;></p>
+
+<p>So far we&rsquo;ve been pretty happy using Apiary. There are some helpful features to the system that can aid your efforts such as reusable request and response models, but it&rsquo;s no silver bullet. Good documentation takes time and it&rsquo;s probably not possible to completely avoid that.</p>
+
+<p>The only real complaint I have with the system so far is that your entire API document is constructed in a single, loooong page. This works OK for reading because things collapse and there is a table of contents, but for editing, it can be a mess. Aside from that it&rsquo;s been a great collaboration and organization tool. It&rsquo;s unlikely that my API would be as well documented as it is in Apiary if I had chosen to write it in some other way.</p>
+]]></content>
+  </entry>
+  
+</feed>
