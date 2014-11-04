@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Aws | Chicken's Blog ^_^]]></title>
-  <link href="http://code-for-food.github.io/blog/categories/aws/atom.xml" rel="self"/>
-  <link href="http://code-for-food.github.io/"/>
-  <updated>2014-11-04T18:48:02+07:00</updated>
-  <id>http://code-for-food.github.io/</id>
+  <link href="http://codeforfoods.net/blog/categories/aws/atom.xml" rel="self"/>
+  <link href="http://codeforfoods.net/"/>
+  <updated>2014-11-04T21:46:15+07:00</updated>
+  <id>http://codeforfoods.net/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Aws] - Adding a Ec2 Node to an Elastic Load Balancer]]></title>
-    <link href="http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/"/>
+    <link href="http://codeforfoods.net/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/"/>
     <updated>2014-11-03T21:42:35+07:00</updated>
-    <id>http://code-for-food.github.io/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer</id>
+    <id>http://codeforfoods.net/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer</id>
     <content type="html"><![CDATA[<h3>Installing</h3>
 
 <ul>

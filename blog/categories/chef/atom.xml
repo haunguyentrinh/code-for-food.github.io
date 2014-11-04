@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Chef | Chicken's Blog ^_^]]></title>
-  <link href="http://code-for-food.github.io/blog/categories/chef/atom.xml" rel="self"/>
-  <link href="http://code-for-food.github.io/"/>
-  <updated>2014-11-04T18:48:02+07:00</updated>
-  <id>http://code-for-food.github.io/</id>
+  <link href="http://codeforfoods.net/blog/categories/chef/atom.xml" rel="self"/>
+  <link href="http://codeforfoods.net/"/>
+  <updated>2014-11-04T21:46:15+07:00</updated>
+  <id>http://codeforfoods.net/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Nodejs Cooking]]></title>
-    <link href="http://code-for-food.github.io/blog/2014/11/03/nodejs-cooking/"/>
+    <link href="http://codeforfoods.net/blog/2014/11/03/nodejs-cooking/"/>
     <updated>2014-11-03T09:47:33+07:00</updated>
-    <id>http://code-for-food.github.io/blog/2014/11/03/nodejs-cooking</id>
+    <id>http://codeforfoods.net/blog/2014/11/03/nodejs-cooking</id>
     <content type="html"><![CDATA[<ul>
 <li><p>This project is Chef-Solo, this help to setup development base on Nodejs and Mysql</p></li>
 <li><p>This also includes a demo about Simple API which using Express and Mysql</p></li>
@@ -291,7 +291,7 @@
 <p>Welcome any comments, please contact me via</p>
 
 <ul>
-<li>Email: <a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;&#58;&#x63;&#x6f;&#x64;&#x65;&#x2e;&#102;&#111;&#x72;&#46;&#x66;&#x6f;&#x6f;&#x64;&#46;&#x31;&#x34;&#x40;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x63;&#111;&#100;&#x65;&#46;&#x66;&#111;&#x72;&#46;&#x66;&#x6f;&#111;&#100;&#x2e;&#49;&#52;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a></li>
+<li>Email: <a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#x63;&#x6f;&#x64;&#101;&#46;&#x66;&#111;&#114;&#46;&#102;&#111;&#111;&#x64;&#x2e;&#x31;&#x34;&#x40;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#x63;&#x6f;&#x64;&#101;&#46;&#x66;&#x6f;&#x72;&#x2e;&#102;&#111;&#x6f;&#100;&#46;&#x31;&#x34;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a></li>
 </ul>
 
 ]]></content>
