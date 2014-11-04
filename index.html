@@ -9,7 +9,7 @@
   <meta name="author" content="code.for.food.14">
 
   
-  <meta name="description" content="Installing Install Python brew install python Install AWS CLI - AWS CLI (http://aws.amazon.com/cli/) is command line tool for working with Amazon Web &hellip;">
+  <meta name="description" content="To add the CORS authorization to the header using Apache, simply add the following line inside either the &lt;Directory&gt;, &lt;Location&gt;, &lt; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/04/cors-on-apache/">CORS on Apache</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-11-04T08:32:41+07:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>8:32 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>To add the CORS authorization to the header using Apache, simply add the following line inside either the <code>&lt;Directory&gt;</code>, <code>&lt;Location&gt;</code>, <code>&lt;Files&gt;</code> or <code>&lt;VirtualHost&gt;</code> sections of your server config (usually located in a *.conf file, such as <code>httpd.conf</code> or <code>apache.conf</code>), or within a <code>.htaccess</code> file:</p>
+
+<pre><code>    Header set Access-Control-Allow-Origin "*"
+</code></pre>
+
+<p>To ensure that your changes are correct, it is strongly reccomended that you use</p>
+
+<pre><code>    apachectl -t
+</code></pre>
+
+<p>to check your configuration changes for errors. After this passes, you may need to reload Apache to make sure your changes are applied by running the command</p>
+
+<pre><code>    sudo service apache2 reload
+</code></pre>
+
+<p>More detail</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://enable-cors.org/server_apache.html</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -673,7 +721,7 @@
 <p>Welcome any comments, please contact me via</p>
 
 <ul>
-<li>Email: <a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x63;&#111;&#100;&#101;&#x2e;&#102;&#111;&#x72;&#x2e;&#x66;&#x6f;&#x6f;&#100;&#46;&#x31;&#x34;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#111;&#109;">&#x63;&#111;&#100;&#101;&#x2e;&#x66;&#x6f;&#x72;&#46;&#102;&#x6f;&#111;&#x64;&#46;&#x31;&#52;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></li>
+<li>Email: <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#99;&#x6f;&#x64;&#x65;&#46;&#x66;&#111;&#114;&#46;&#x66;&#111;&#x6f;&#100;&#x2e;&#x31;&#x34;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#x63;&#x6f;&#100;&#101;&#46;&#x66;&#x6f;&#114;&#46;&#x66;&#x6f;&#111;&#100;&#x2e;&#x31;&#52;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></li>
 </ul>
 
 </div>
@@ -738,6 +786,10 @@
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/04/cors-on-apache/">CORS on Apache</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/11/03/aws-adding-a-note-to-an-elastic-load-balancer/">[Aws] - Adding a Ec2 Node to an Elastic Load Balancer</a>

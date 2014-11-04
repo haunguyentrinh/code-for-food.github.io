@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Apache | Chicken's Blog ^_^]]></title>
+  <link href="http://code-for-food.github.io/blog/categories/apache/atom.xml" rel="self"/>
+  <link href="http://code-for-food.github.io/"/>
+  <updated>2014-11-04T08:35:38+07:00</updated>
+  <id>http://code-for-food.github.io/</id>
+  <author>
+    <name><![CDATA[code.for.food.14]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[CORS on Apache]]></title>
+    <link href="http://code-for-food.github.io/blog/2014/11/04/cors-on-apache/"/>
+    <updated>2014-11-04T08:32:41+07:00</updated>
+    <id>http://code-for-food.github.io/blog/2014/11/04/cors-on-apache</id>
+    <content type="html"><![CDATA[<p>To add the CORS authorization to the header using Apache, simply add the following line inside either the <code>&lt;Directory&gt;</code>, <code>&lt;Location&gt;</code>, <code>&lt;Files&gt;</code> or <code>&lt;VirtualHost&gt;</code> sections of your server config (usually located in a *.conf file, such as <code>httpd.conf</code> or <code>apache.conf</code>), or within a <code>.htaccess</code> file:</p>
+
+<pre><code>    Header set Access-Control-Allow-Origin "*"
+</code></pre>
+
+<p>To ensure that your changes are correct, it is strongly reccomended that you use</p>
+
+<pre><code>    apachectl -t
+</code></pre>
+
+<p>to check your configuration changes for errors. After this passes, you may need to reload Apache to make sure your changes are applied by running the command</p>
+
+<pre><code>    sudo service apache2 reload
+</code></pre>
+
+<p>More detail</p>
+
+<pre><code>    http://enable-cors.org/server_apache.html
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
