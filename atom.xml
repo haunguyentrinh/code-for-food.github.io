@@ -4,7 +4,7 @@
   <title><![CDATA[Chicken's Blog ^_^]]></title>
   <link href="http://www.codeforfoods.net/atom.xml" rel="self"/>
   <link href="http://www.codeforfoods.net/"/>
-  <updated>2014-11-04T16:37:49+07:00</updated>
+  <updated>2014-11-04T16:47:54+07:00</updated>
   <id>http://www.codeforfoods.net/</id>
   <author>
     <name><![CDATA[code.for.food.14]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Abc]]></title>
+    <link href="http://www.codeforfoods.net/blog/2014/11/04/abc/"/>
+    <updated>2014-11-04T16:45:53+07:00</updated>
+    <id>http://www.codeforfoods.net/blog/2014/11/04/abc</id>
+    <content type="html"><![CDATA[<p><img src="http://www.mtv.com/crop-images/2013/09/09/Fun_325.jpg"></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New Post]]></title>
+    <link href="http://www.codeforfoods.net/blog/2014/11/04/new-post/"/>
+    <updated>2014-11-04T16:44:53+07:00</updated>
+    <id>http://www.codeforfoods.net/blog/2014/11/04/new-post</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Draf Post]]></title>
@@ -597,7 +615,7 @@
 <p>Welcome any comments, please contact me via</p>
 
 <ul>
-<li>Email: <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#x63;&#x6f;&#100;&#101;&#46;&#102;&#111;&#114;&#x2e;&#102;&#x6f;&#x6f;&#100;&#46;&#49;&#x34;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#99;&#111;&#x64;&#x65;&#x2e;&#102;&#111;&#x72;&#46;&#102;&#x6f;&#x6f;&#x64;&#46;&#x31;&#52;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></li>
+<li>Email: <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#x63;&#x6f;&#100;&#x65;&#x2e;&#x66;&#111;&#114;&#x2e;&#x66;&#x6f;&#x6f;&#x64;&#x2e;&#x31;&#52;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#111;&#109;">&#99;&#111;&#100;&#x65;&#x2e;&#x66;&#111;&#x72;&#46;&#x66;&#111;&#x6f;&#100;&#x2e;&#49;&#x34;&#x40;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></li>
 </ul>
 
 ]]></content>
