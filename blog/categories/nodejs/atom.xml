@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Nodejs | Chicken's Blog ^_^]]></title>
+  <link href="http://www.codeforfoods.net/blog/categories/nodejs/atom.xml" rel="self"/>
+  <link href="http://www.codeforfoods.net/"/>
+  <updated>2014-11-04T16:37:49+07:00</updated>
+  <id>http://www.codeforfoods.net/</id>
+  <author>
+    <name><![CDATA[code.for.food.14]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Nodejs Cooking]]></title>
+    <link href="http://www.codeforfoods.net/blog/2014/11/03/nodejs-cooking/"/>
+    <updated>2014-11-03T09:47:33+07:00</updated>
+    <id>http://www.codeforfoods.net/blog/2014/11/03/nodejs-cooking</id>
+    <content type="html"><![CDATA[<ul>
+<li><p>This project is Chef-Solo, this help to setup development base on Nodejs and Mysql</p></li>
+<li><p>This also includes a demo about Simple API which using Express and Mysql</p></li>
+</ul>
+
+
+<h4>What was including</h4>
+
+<ul>
+<li>Using <a href="https://docs.getchef.com/chef_solo.html">Chef-solo</a> for cooking</li>
+<li>Using <a href="http://matschaffer.github.io/knife-solo">Knife-solo</a> for initialazing, adding, editing <code>cookbooks</code>, <code>roles</code>, <code>environment</code></li>
+<li>Using <a href="https://github.com/applicationsonline/librarian-chef">librarian-chef</a> for managing <code>cookbooks</code></li>
+</ul>
+
+
+<h4>Installing</h4>
+
+<ul>
+<li>Installing <code>librarian-chef</code> and <code>knife-solo</code></li>
+<li><p>initialazing librarian, this would create new forder with named <code>cookbooks</code> and a <code>Cheffile</code></p>
+
+<pre><code>  librarian-chef init
+</code></pre></li>
+<li><p>Adding <code>nvm</code> and <code>msql</code> cookbook to <code>Cheffile</code></p>
+
+<pre><code>  cookbook 'mysql', '~&gt; 5.5.2'
+  cookbook 'nvm', '~&gt; 0.1.0'  
+</code></pre></li>
+<li><p>Initialazing <code>knife-solo</code>, this would create the folder structure</p>
+
+<pre><code>  knife-solo init
+</code></pre></li>
+<li><p>Installing cookbooks from <code>Cheffile</code></p>
+
+<pre><code>  libratian-chef install
+</code></pre></li>
+<li><p>Creating an encryption key</p>
+
+<pre><code>  openssl rand -base64 512 | tr -d 'rn' &gt; ~/.chef/encrypted_data_bag_secret
+  chmod 600 ~/.chef/encrypted_data_bag_secret
+</code></pre></li>
+<li><p>Adding the path of encryption key to <code>.chef/knife.rb</code></p>
+
+<pre><code>  knife[:secret_file] = ".chef/encrypted_data_bag_secret"
+</code></pre></li>
+<li><p>Creating a data bag, this stores the security inforamtion (ex database&rsquo;s password)</p>
+
+<pre><code>   knife solo data bag create secrets myapp
+</code></pre></li>
+</ul>
+
+
+<p>Enter something</p>
+
+<pre><code>    {
+        "id": "myapp",
+         "aws_config": {
+            "AWSAccessKeyId": "xxx",
+            "AWSSecretKey": "xxx"
+          },
+      "db_config": {
+        "dev": [
+            {
+                "name": "default",
+                "mysql_root_password": "abc@123",
+                "hostname": "localhost",
+                "username": "root",
+                "password": "abc@123",
+                "database": "myqpp"
+            }
+        ]
+      }
+    }
+</code></pre>
+
+<ul>
+<li><p>The encrypted data bag will be stored into <code>data-bag/secrets/myapp.js</code></p>
+
+<pre><code>  {
+    "id": "myapp",
+    "aws_config": {
+      "encrypted_data":               "RjARHBKLm0DTbHDeIB5XjTjdWovyvv5T3V9T79UyEOq4/5Km6LaZ4y7leP7/\nNLCNQaJsUZQASaAII3bzkmwamecn03q5XUp4yDzeYcCqyRhP18BnyCxYDcOm\nc0HD1xEVuOanTt5R7ppJMj3kzN02YESN4CA/+70f0Qkp6yexhVo=\n",
+      "iv": "Yr9pDrhjZjhLRxHEBna0nw==\n",
+      "version": 1,
+      "cipher": "aes-256-cbc"
+    },
+    "db_config": {
+      "encrypted_data": "F6iPNUMY+dzao52SpQqHEWlFbGWUBMWSBAy4FinaCQ0Tbh06nDPgSdNI7qoJ\n3DjfrLBZOV1/8xD9t+SkJI3BEvW+yxCnnDPEz+iiZ8/jYJaypy/Bhrn42EC4\ni2VPb66HnVYD4Uq0pObVWzhLATXfqNZ/79I/bTdHTuhGcynDNzRNjyYEDfIF\nG9SuooNjUAduwmLotW//XxMM4uFNZ04hww==\n",
+      "iv": "DbN/KOPibOqNtAkLbdBr0w==\n",
+      "version": 1,
+      "cipher": "aes-256-cbc"
+    }
+  }
+</code></pre></li>
+<li><p>Creating a owner cookbook (I created <code>myapp</code> cookbook), this should create at <code>site-cookbook</code> folder</p>
+
+<pre><code>  knife cookbook create  myapp
+</code></pre></li>
+<li><p>Configurating the default root password for mysql::server add <code>site-cookbooks/myapp/attributes/default.rb</code> (create one if this file is not existed)</p>
+
+<pre><code>  secrets = Chef::EncryptedDataBagItem.load("secrets", "myapp")
+
+  default['mysql']['server_root_password']   = secrets["db_config"][node.chef_environment][0]["mysql_root_password"]
+  default['mysql']['server_debian_password'] = secrets["db_config"][node.chef_environment][0]["mysql_root_password"]
+  default['mysql']['server_repl_password']   = secrets["db_config"][node.chef_environment][0]["mysql_root_password"]
+</code></pre></li>
+<li><p>Installing <code>mysql</code> and <code>nvm</code> and <code>node 0.10.33</code> in <code>site-cookbooks/myapp/attributes/recipes/default.rb</code></p>
+
+<pre><code>  include_recipe "mysql::client"
+  include_recipe "mysql::server"
+  include_recipe 'nvm'
+
+  # install node.js v0.10.5
+  nvm_install 'v0.10.33'  do
+      from_source true
+      alias_as_default true
+      action :create
+  end
+</code></pre></li>
+<li><p>Creating <code>deploy recipe</code>, this recipe would  help to deploy latest code from <code>github</code> to server and <code>start/restart server</code></p></li>
+<li><p>Creating the <code>enviroments</code> (<code>dev</code> for Vagrant and <code>prod</code> for real server)</p>
+
+<pre><code>  kinfe evironment create dev
+</code></pre></li>
+</ul>
+
+
+<p>Enter something</p>
+
+<pre><code>    {
+          "name": "dev",
+          "description": "",
+          "cookbook_versions": {
+
+          },
+          "json_class": "Chef::Environment",
+          "chef_type": "environment",
+          "default_attributes": {
+            "myapp": {
+              "root_path": "/vagrant"
+            }
+        },
+        "override_attributes": {
+
+        }
+    }
+</code></pre>
+
+<ul>
+<li><p>Creating the <code>roles</code></p>
+
+<pre><code>  knife role create myapp
+</code></pre></li>
+</ul>
+
+
+<p>Enter something</p>
+
+<pre><code>    {
+      "name": "myapp",
+      "description": "",
+      "json_class": "Chef::Role",
+      "default_attributes": {
+
+      },
+      "override_attributes": {
+
+      },
+      "chef_type": "role",
+      "run_list": [
+
+      ],
+      "env_run_lists": {
+        "dev": [
+          "recipe[myapp]",
+          "recipe[myapp::deploy]"
+        ]
+      }
+    }   
+</code></pre>
+
+<ul>
+<li>Creating <code>Vagrantfile</code> which would use <code>chef-solo</code> as provision</li>
+</ul>
+
+
+<pre><code class="ruby Vagrantfile https://github.com/code-for-food/node-cooking/blob/master/Vagrantfile Link">    # -*- mode: ruby -*-
+        # vi: set ft=ruby :
+
+        # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+        VAGRANTFILE_API_VERSION = "2"
+        CHEF_PATH = "."
+        SYNC_PATH = "./www"
+        Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+          config.vm.box = "ubuntu14.04"
+          config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box"
+          config.vm.network "private_network", ip: "192.168.34.100"
+          config.vm.hostname = "devnodejs.chicken.com"
+          config.ssh.forward_agent = true
+          config.ssh.forward_x11   = true
+
+          config.vm.provider "virtualbox" do |vb|
+            vb.customize(["modifyvm", :id, "--natdnshostresolver1", "off"  ])
+            vb.customize(["modifyvm", :id, "--natdnsproxy1",        "off"  ])
+            vb.customize(["modifyvm", :id, "--memory",              "1024" ])
+          end
+
+
+
+          config.omnibus.chef_version = '11.16.0'
+          config.vm.provision :chef_solo do |chef|
+
+
+               chef.cookbooks_path = "#{CHEF_PATH}/cookbooks", "#{CHEF_PATH}/site-cookbooks"
+               chef.environments_path = "#{CHEF_PATH}/environments" 
+               chef.environment = "dev" 
+               chef.roles_path = "#{CHEF_PATH}/roles"
+               chef.data_bags_path = "#{CHEF_PATH}/data_bags"
+               chef.encrypted_data_bag_secret_key_path = "#{CHEF_PATH}/.chef/encrypted_data_bag_secret"
+               chef.add_role('myapp')
+          end
+
+          config.vm.synced_folder("#{SYNC_PATH}", "/vagrant",
+                          :owner =&gt; "vagrant",
+                          :group =&gt; "vagrant",
+                          :mount_options =&gt; ['dmode=777','fmode=777']) 
+        end
+</code></pre>
+
+<h3>Usage</h3>
+
+<h4>Develop Environment using Vagrant</h4>
+
+<p>Notes:</p>
+
+<ul>
+<li>You must install <a href="https://www.vagrantup.com/">Vagrant</a> first</li>
+<li><p>Install <code>vagrant-omnibus</code> plugin</p>
+
+<pre><code>  vagrant plugin install vagrant-omnibus
+</code></pre></li>
+</ul>
+
+
+<p>Vagrant up</p>
+
+<pre><code>    vagrant up
+</code></pre>
+
+<p>You see something like that</p>
+
+<pre><code>    Running handlers:
+    [2014-11-02T07:16:20+00:00] INFO: Running report handlers
+    Running handlers complete
+    [2014-11-02T07:16:20+00:00] INFO: Report handlers complete
+    Chef Client finished, 30/36 resources updated in 756.082469267 seconds
+</code></pre>
+
+<h5>Congratulation!!! You are Chef now :)</h5>
+
+<pre><code class="ruby git repos https://github.com/code-for-food/node-cooking/blob/master/Vagrantfile repos">$ git clone https://github.com/code-for-food/node-cooking.git # fork from github
+</code></pre>
+
+<h3>License</h3>
+
+<p>Written by <a href="mailto:code.for.food.14@gmail.com">code-for-food</a></p>
+
+<p>Copyright &copy; 2014 Code-For-Food.</p>
+
+<p>Welcome any comments, please contact me via</p>
+
+<ul>
+<li>Email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#99;&#x6f;&#x64;&#101;&#x2e;&#102;&#111;&#114;&#x2e;&#x66;&#111;&#111;&#100;&#46;&#49;&#x34;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x63;&#111;&#100;&#101;&#x2e;&#x66;&#111;&#114;&#x2e;&#x66;&#111;&#x6f;&#x64;&#x2e;&#49;&#x34;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
